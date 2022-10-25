@@ -12,7 +12,6 @@ cd maven-webapp
 mvn clean package
 
 
-
 # Deploy War
 
 Copy the war file from target/name_of_war.war  to tomcat_installed_directory/webapps directory
