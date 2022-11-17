@@ -1,0 +1,53 @@
+pipeline {
+    agent {
+        label 'slave-node1'
+    }
+    
+    tools{
+        maven 'maven-3.8.6'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                cleanWs()
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'git_cred', url: 'https://github.com/zielotechgroup/maven-webapp.git']]])
+            }
+        }
+        
+        stage('build') {
+            steps {
+                sh 'mvn clean package -DskipTests=true checkstyle:checkstyle'
+            }
+        }
+        
+        stage('test') {
+            steps {
+                sh 'mvn test'
+                //junit 'target/ surefire-reports-reports/*.xml'
+            }
+        }
+        
+        stage('Parallel Stage'){
+            parallel{
+                stage('Static Analysis') {
+                    steps {
+                        sh 'sleep 15'
+                        recordIssues(tools: [checkStyle(pattern: '**/checkstyle-result.xml')])
+                    }
+                }
+        
+                stage('Code Coverage'){
+                    steps{
+                        sh 'sleep 15'
+                        jacoco maximumBranchCoverage: '80', maximumClassCoverage: '80', maximumComplexityCoverage: '80', maximumInstructionCoverage: '80', maximumLineCoverage: '80', maximumMethodCoverage: '80', minimumBranchCoverage: '80', minimumClassCoverage: '80', minimumComplexityCoverage: '80', minimumInstructionCoverage: '80', minimumLineCoverage: '80', minimumMethodCoverage: '80'
+                    }
+                }
+            }
+        }
+        
+        
+        
+        
+    }
+}
