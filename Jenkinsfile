@@ -50,6 +50,7 @@ pipeline {
             steps{
                 sh "docker build -t webapp ."
                 sh "docker tag webapp:latest nayakomprasad/maven-webapp:1.0"
+                sh "docker push nayakomprasad/maven-webapp:1.0"
             }
         }
       
