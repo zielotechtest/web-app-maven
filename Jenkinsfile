@@ -10,6 +10,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                echo "checkout"
                 //cleanWs()
                 // Get some code from a GitHub repository
                 // git 'https://github.com/zielotechgroup/maven-webapp.git'
