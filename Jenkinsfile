@@ -12,7 +12,7 @@ pipeline {
             steps {
                 cleanWs()
                 // Get some code from a GitHub repository
-                git 'https://github.com/zielotechgroup/maven-webapp.git'
+                // git 'https://github.com/zielotechgroup/maven-webapp.git'
             }
         }
         stage('Build') {
