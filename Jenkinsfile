@@ -49,6 +49,7 @@ pipeline {
         stage('Docker Build'){
             steps{
                 sh "docker build -t webapp ."
+                sh "docker tag webapp:latest nayakomprasad/maven-webapp:1.0"
             }
         }
       
