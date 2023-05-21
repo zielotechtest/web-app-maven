@@ -23,10 +23,10 @@
 	<span style="font-weight: bold;">
 		Trainer: Om Sir <br>
 		Mentored By: Nihar Sir <br>
-		Zielotech Group Of Institutes
+		
 	</span>
 </div>
 
-<p align=center>Zielotech Group Of Institutes - Training, Development Center.</p>
+<p align=center>A Training, Development Center.</p>
 </body>
 </html>
