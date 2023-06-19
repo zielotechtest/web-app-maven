@@ -26,7 +26,7 @@ pipeline {
         
         stage ('sonar analysis') {
             steps{
-                withSonarQubeEnv() {
+                withSonarQubeEnv('sonar-server') {
                 }
             }
         }
