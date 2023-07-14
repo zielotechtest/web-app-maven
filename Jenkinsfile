@@ -41,6 +41,7 @@ pipeline {
                 
                 withCredentials([usernamePassword(credentialsId: 'DOCKER-CRED', passwordVariable: 'pswd', usernameVariable: 'uname')]) {
                     sh 'docker login -u $uname -p $pswd'
+                    sh 'docker build -t web .'
                     sh 'docker tag web:latest nayakomprasad/demo123:v3'
                     sh 'docker push nayakomprasad/demo123:v3'
                 }
