@@ -51,7 +51,7 @@ pipeline {
         stage ('k8s') {
             steps{
                 withAWS(credentials:'aws') {
-                    withKubeConfig([credentialsId: 'k8s') {
+                    withKubeConfig([credentialsId: 'k8s']) {
                       sh 'kubectl get nodes'
                     }
                 }
