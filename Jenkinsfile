@@ -15,7 +15,7 @@ pipeline {
         
         stage ('Build') {
             steps{
-                sh 'mvn clean package'
+                sh 'mvn clean package checkstyle:checkstyle'
             }
         }
         stage ('Test') {
@@ -25,7 +25,6 @@ pipeline {
         }
         stage ('Code quality analysis') {
             steps{
-                sh 'mvn checkstyle:checkstyle'
                 recordIssues(tools: [checkStyle()])
             }
         }
