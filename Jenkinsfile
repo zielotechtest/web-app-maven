@@ -51,7 +51,7 @@ pipeline {
         stage ('k8s') {
             steps{
                 withAWS(credentials:'aws') {
-                    aws s3 ls
+                    sh 'aws s3 ls'
                     withKubeConfig([credentialsId: 'user1', serverUrl: 'https://api.k8s.my-company.com']) {
                       sh 'kubectl get nodes'
                     }
