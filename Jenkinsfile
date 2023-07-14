@@ -36,18 +36,18 @@ pipeline {
             }
         }
         
-        stage ('Docker Build and Publish') {
-            steps{
-                // sh 'docker build -t web .'
+        // stage ('Docker Build and Publish') {
+        //     steps{
+        //         // sh 'docker build -t web .'
                 
-                withCredentials([usernamePassword(credentialsId: 'DOCKER-CRED', passwordVariable: 'pswd', usernameVariable: 'uname')]) {
-                    sh 'docker login -u $uname -p $pswd'
-                    sh 'docker tag web:latest nayakomprasad/demo123:v3'
-                    sh 'docker push nayakomprasad/demo123:v3'
-                }
+        //         withCredentials([usernamePassword(credentialsId: 'DOCKER-CRED', passwordVariable: 'pswd', usernameVariable: 'uname')]) {
+        //             sh 'docker login -u $uname -p $pswd'
+        //             sh 'docker tag web:latest nayakomprasad/demo123:v3'
+        //             sh 'docker push nayakomprasad/demo123:v3'
+        //         }
                 
-            }
-        }
+        //     }
+        // }
         
         
         
