@@ -2,7 +2,7 @@ pipeline {
     
     agent any
     tools {
-      maven 'maven-3.9.1'
+      maven 'maven'
     }
     
     
@@ -15,7 +15,7 @@ pipeline {
         
         stage ('Build') {
             steps{
-                sh 'mvn clean package'
+                sh 'mvn clean package checkstyle:checkstyle'
             }
         }
         stage ('Test') {
@@ -25,7 +25,6 @@ pipeline {
         }
         stage ('Code quality analysis') {
             steps{
-                sh 'mvn checkstyle:checkstyle'
                 recordIssues(tools: [checkStyle()])
             }
         }
@@ -42,10 +41,31 @@ pipeline {
                 
                 withCredentials([usernamePassword(credentialsId: 'DOCKER-CRED', passwordVariable: 'pswd', usernameVariable: 'uname')]) {
                     sh 'docker login -u $uname -p $pswd'
+                    // sh 'docker build -t web .'
                     sh 'docker tag web:latest nayakomprasad/demo123:v3'
                     sh 'docker push nayakomprasad/demo123:v3'
                 }
                 
+            }
+        }
+        stage ('k8s') {
+            steps{
+                withAWS(credentials:'aws') {
+                    withKubeConfig([credentialsId: 'k8s', serverUrl: 'https://6C753EAC71C9CB467D7F83C920526F80.gr7.ap-south-1.eks.amazonaws.com']) {
+                        sh '''
+
+                        kubectl get nodes
+
+                        '''
+
+                              // curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+                        // sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+                        // chmod +x kubectl
+                        // mkdir -p ~/.local/bin
+                        // mv ./kubectl ~/.local/bin/kubectl
+                      
+                    }
+                }
             }
         }
         
