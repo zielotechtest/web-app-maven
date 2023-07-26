@@ -27,6 +27,10 @@ pipeline {
         stage ('sonar analysis') {
             steps{
                 withSonarQubeEnv('sonar-server') {
+                    sh '''
+                          cd sonarqube-scanner-maven/maven-multilingual/
+                           mvn clean verify sonar:sonar -Dsonar.projectKey=webapp -Dsonar.projectName='webapp'
+                       '''
                 }
             }
         }
