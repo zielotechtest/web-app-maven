@@ -6,6 +6,7 @@ pipeline{
     stages{
         stage('checkout'){
             steps{
+                cleanWs()
                 git branch: 'main', url: 'https://github.com/zielotechtest/web-app-maven.git'
             }
         }
