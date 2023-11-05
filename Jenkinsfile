@@ -19,6 +19,13 @@ pipeline{
                 sh 'mvn test'
             }
         }
+        stage('sonar analysis'){
+            steps{
+                withSonarQubeEnv('sonar-server'){
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=webapp -Dsonar.projectName='webapp''
+                }   
+            }
+        }
         stage('code quality analysis'){
             steps{
                 sh 'mvn checkstyle:checkstyle'
