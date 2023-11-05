@@ -22,7 +22,7 @@ pipeline{
         stage('sonar analysis'){
             steps{
                 withSonarQubeEnv('sonar-server'){
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=webapp -Dsonar.projectName='webapp''
+                    sh "mvn sonar:sonar -Dsonar.projectKey=webapp -Dsonar.projectName='webapp'"
                 }   
             }
         }
